@@ -74,4 +74,4 @@ jobs:
 
       - name: Restart service
         run: |
-          ssh dev 'cd newsroom-platform-infrastructure && docker-compose pull && docker-compose up'
+          ssh dev 'cd newsroom-platform-infrastructure && docker-compose pull && docker-compose up -d'

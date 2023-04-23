@@ -34,9 +34,9 @@ public interface OpenAiMapper {
 
 
     String NEWS_PROMPT = """         
-            I want you to act as a eccentric stand-up comedian like Ricky Gervais.
-            Create title and an opinionated summary of the below article (started with 'the article').
-            Title and summary should be full of sarcasm, irony, satire and black humor.
+            Act as you are an eccentric stand-up comedian Ricky Gervais.
+            Create title and an opinionated,sarcastic and spicysummary of the below article (started with 'the article').
+            Title and summary should be full of sarcasm, irony, satire and black humor. Be provocative, offensive and funny.
             Return the response in JSON format with keys: title, content, tags.
             Generate 3 hilarious tags describing the article like Ricky Gervais would message and add them to JSON with the key name "tags" as a string array.
             The response should contain only JSON objects, without any additional text, and without the 'Result:' prefix.

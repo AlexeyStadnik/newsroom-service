@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: "${SPRING_DATASOURCE_URL}"
+    username: "${SPRING_DATASOURCE_USERNAME}"
+    password: "${SPRING_DATASOURCE_PASSWORD}"
+
+server:
+  port: "${PORT:8080}"
+
+---
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: newsroom_service
+    password: newsroom_service
+    url: jdbc:postgresql://localhost:5432/newsroom_service
+  config:
+    activate:
+      on-profile: local

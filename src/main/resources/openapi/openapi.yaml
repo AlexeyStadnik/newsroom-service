@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Newsroom service
+  version: "1.0"
+  description: Newsroom API
+tags:
+  - name: News
+    description: News management
+
+servers:
+  - url: /newsroom-service/api/v1
+
+paths:
+  /stub:
+    post:
+      tags:
+        - Stub
+      operationId: create
+      responses:
+        "201":
+          description: Stub
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  parameters:
+    PageQueryParameter:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SizeQueryParameter:
+      name: size
+      in: query
+      schema:
+        type: integer
+        minimum: 10
+        maximum: 30
+        default: 10
+
+  # ========================================
+  # ===== Schemas
+  # ========================================
+  schemas:
+
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        errorCode:
+          type: string
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldError'
+
+    FieldError:
+      required:
+        - message
+        - field
+      properties:
+        errorCode:
+          type: string
+        message:
+          type: string
+        field:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    UnsupportedMediaType:
+      description: Unsupported Media Type
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    UnprocessableEntity:
+      description: Unprocessable Entity
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotAcceptable:
+      description: Not Acceptable
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"

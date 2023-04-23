@@ -1,0 +1,75 @@
+buildscript {
+	ext {
+		basePackage = "com.newsroom"
+		openApiVersion = '6.5.0'
+		swaggerAnnotationsVersion = '2.2.9'
+		mapstructVersion = '1.5.4.Final'
+	}
+	dependencies {
+		classpath "org.openapitools:openapi-generator-gradle-plugin:${openApiVersion}"
+	}
+}
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.0.6'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+//Openapi generator plugin and configuration
+apply plugin: 'org.openapi.generator'
+apply from: "gradle/openapi.gradle"
+
+//Static analysis plugins and configuration
+apply plugin: 'pmd'
+apply from: "gradle/pmd.gradle"
+
+apply plugin: 'checkstyle'
+apply from: "gradle/checkstyle.gradle"
+
+//Useful mapstruct property
+apply from: "gradle/mapstruct.gradle"
+
+group = 'com.newsroom'
+version = '1.0'
+sourceCompatibility = '17'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	implementation 'org.flywaydb:flyway-core'
+
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+	implementation "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+
+	// Swagger annotations are required for the openapi generator
+	implementation "io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}"
+
+	compileOnly 'org.projectlombok:lombok'
+
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	runtimeOnly 'org.postgresql:postgresql'
+
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	// mapstruct should be declared after lombok !
+	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

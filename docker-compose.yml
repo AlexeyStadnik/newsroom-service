@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+
+  postgres-db:
+    image: postgres:15.2-alpine
+    environment:
+      - POSTGRES_USER=newsroom_service
+      - POSTGRES_PASSWORD=newsroom_service
+      - POSTGRES_DB=newsroom_service
+    ports:
+      - "5432:5432"

@@ -10,6 +10,15 @@ spring:
 server:
   port: "${PORT:8080}"
 
+resilience4j.ratelimiter:
+  instances:
+    openai-ratelimiter:
+      limitForPeriod: 1
+      limitRefreshPeriod: 5s
+      timeoutDuration: 30s
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 10
+
 app:
   openai:
     host: "https://api.openai.com"

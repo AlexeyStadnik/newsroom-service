@@ -7,6 +7,9 @@ buildscript {
 		hibernateTypesVersion = '2.16.2'
 		testcontainersVersion = "1.17.2"
 		javaFakerVersion = "1.0.2"
+		hypersistenceVersion = "3.3.2"
+		resilience4jVersion = "2.0.2"
+		deeplVersion = "1.1.0"
 	}
 	dependencies {
 		classpath "org.openapitools:openapi-generator-gradle-plugin:${openApiVersion}"
@@ -47,13 +50,18 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation "org.springframework.boot:spring-boot-starter-validation"
+	implementation "org.springframework.boot:spring-boot-starter-actuator"
 
+	implementation "io.github.resilience4j:resilience4j-spring-boot3:${resilience4jVersion}"
+
+	// db
 	implementation 'org.flywaydb:flyway-core'
-	implementation group: 'io.hypersistence', name: 'hypersistence-utils-hibernate-60', version: '3.3.2'
+	implementation "io.hypersistence:hypersistence-utils-hibernate-60:${hypersistenceVersion}"
 
+	// mapstruct
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	implementation "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
 
@@ -61,7 +69,7 @@ dependencies {
 	implementation "io.swagger.core.v3:swagger-annotations:${swaggerAnnotationsVersion}"
 
 	//deepl
-	implementation group: 'com.deepl.api', name: 'deepl-java', version: '1.1.0'
+	implementation "com.deepl.api:deepl-java:${deeplVersion}"
 
 	compileOnly 'org.projectlombok:lombok'
 

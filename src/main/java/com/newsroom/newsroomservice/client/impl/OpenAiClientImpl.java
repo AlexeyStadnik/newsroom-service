@@ -5,6 +5,7 @@ import com.newsroom.newsroomservice.client.model.ChatGptRequest;
 import com.newsroom.newsroomservice.client.model.ChatGptResponse;
 import com.newsroom.newsroomservice.configuration.AppConfiguration;
 import com.newsroom.newsroomservice.exception.ServiceException;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -25,6 +26,7 @@ public class OpenAiClientImpl implements OpenAiClient {
     private final AppConfiguration appConfiguration;
 
     @Override
+    @RateLimiter(name = "openai-ratelimiter")
     public ChatGptResponse processGpt(final ChatGptRequest model) {
         final String url = appConfiguration.getOpenAi().getHost() + CHAT_COMPLETIONS_API;
         final HttpHeaders headers = prepareHeader();

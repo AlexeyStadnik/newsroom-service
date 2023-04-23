@@ -26,8 +26,16 @@ spring:
     activate:
       on-profile: local
 
+---
+spring:
+  jpa:
+    show-sql: true
+  config:
+    activate:
+      on-profile: test
+
 app:
   deepl:
-    authKey:
+    authKey: "test-key"
   openai:
-    authKey:
+    authKey: "test-key"

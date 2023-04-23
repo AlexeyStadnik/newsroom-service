@@ -5,7 +5,8 @@ buildscript {
 		swaggerAnnotationsVersion = '2.2.9'
 		mapstructVersion = '1.5.4.Final'
 		hibernateTypesVersion = '2.16.2'
-
+		testcontainersVersion = "1.17.2"
+		javaFakerVersion = "1.0.2"
 	}
 	dependencies {
 		classpath "org.openapitools:openapi-generator-gradle-plugin:${openApiVersion}"
@@ -74,6 +75,14 @@ dependencies {
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation "org.testcontainers:testcontainers:${testcontainersVersion}"
+	testImplementation "org.testcontainers:postgresql:${testcontainersVersion}"
+	testImplementation "com.github.javafaker:javafaker:${javaFakerVersion}"
+}
+
+configurations {
+	testAnnotationProcessor.extendsFrom annotationProcessor
+	testCompileOnly.extendsFrom compileOnly
 }
 
 tasks.named('test') {

@@ -56,7 +56,7 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         "404":
           $ref: "#/components/responses/NotFound"
-  /summaries/{summariesId}:
+  /newsroom-service/api/v1/summaries/{summariesId}:
     parameters:
       - name: summariesId
         in: path

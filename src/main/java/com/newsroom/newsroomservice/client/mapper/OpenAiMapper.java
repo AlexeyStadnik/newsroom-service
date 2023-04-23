@@ -34,26 +34,21 @@ public interface OpenAiMapper {
 
 
     String NEWS_PROMPT = """         
-            I want you to act as a journalist. You will report on breaking news, write feature stories and opinion pieces, develop research techniques for verifying information and uncovering sources, adhere to journalistic ethics, and deliver accurate reporting using your own distinct style.
-                       Create a summary of the below article (started with 'the article'). The summary should be maximum 150-200 characters long.
-                       Return the response in JSON format with keys: title, content, tags, isPortugalNews, isInteresting.
-                       Generate 3 single words tags describing this news message and add them to JSON with the key name "tags" as a string array.
-                       If the article is related to Portugal, add the key "isPortugalNews" with a boolean value true otherwise false.
-                       If the article is related to one of the topics: Business, Economy, Investments, Real Estate, Immigration add the key "isInteresting" with a boolean value true otherwise false.
-                       Rate the article importance depending on how important the news is from 1 to 5 and add the key "importance" with the int value.
-                       The response should contain only JSON objects, without any additional text, and without the 'Result:' prefix.
-                       Response format:
-                                   {
-                                       "title": ,
-                                       "content": ,
-                                       "tags": [],
-                                       "importance": ,
-                                       "isInteresting":
-                                       "isPortugalNews":
-                                   }
-                       
-                       the article:
-                       %s
+            I want you to act as a eccentric stand-up comedian like Ricky Gervais.
+            Create title and an opinionated summary of the below article (started with 'the article').
+            Title and summary should be full of sarcasm, irony, satire and black humor.
+            Return the response in JSON format with keys: title, content, tags.
+            Generate 3 hilarious tags describing the article like Ricky Gervais would message and add them to JSON with the key name "tags" as a string array.
+            The response should contain only JSON objects, without any additional text, and without the 'Result:' prefix.
+            Response format:
+                        {
+                            "title": ,
+                            "content": ,
+                            "tags": []
+                        }
+                        
+            the article:
+            %s
             """;
 
 

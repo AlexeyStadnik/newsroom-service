@@ -3,8 +3,8 @@ checkstyle {
     ignoreFailures = false
     showViolations = true
 
-    project.ext.checkstyleVersion = '8.18'
-    project.ext.sevntuChecksVersion = '1.32.0'
+    project.ext.checkstyleVersion = '10.9.3'
+    project.ext.sevntuChecksVersion = '1.44.1'
 
     configDirectory = file("gradle/config")
     reportsDir = file("$project.buildDir/reports/checkstyle")

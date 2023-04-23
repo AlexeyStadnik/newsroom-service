@@ -8,24 +8,79 @@ tags:
     description: News management
 
 servers:
-  - url: /newsroom-service/api/v1
+  - url: http://localhost:8080
+    description: Local server
+
 
 paths:
-  /stub:
+  /newsroom-service/api/v1/summaries:
     post:
       tags:
-        - Stub
-      operationId: create
+        - Summary
+      operationId: generateArticleSummary
+      description: Generates a summary for a given article, initial language could be any language but the output language should one of the supported languages or EN by default
+      requestBody:
+        $ref: "#/components/requestBodies/GenerateSummaryRequest"
       responses:
         "201":
-          description: Stub
+          description: Returns generated article summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Summary"
         "400":
           $ref: "#/components/responses/BadRequest"
         "401":
           $ref: "#/components/responses/Unauthorized"
         "404":
           $ref: "#/components/responses/NotFound"
-
+    get:
+      parameters:
+        - $ref: "#/components/parameters/PageQueryParameter"
+        - $ref: "#/components/parameters/SizeQueryParameter"
+      tags:
+        - Summary
+      operationId: retrieveSummaries
+      responses:
+        "200":
+          description: Returns all summaries with pagination
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Summary"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+  /summaries/{summariesId}:
+    parameters:
+      - name: summariesId
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+    get:
+      tags:
+        - Summary
+      operationId: retrieveSummary
+      responses:
+        "200":
+          description: Returns summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Summary"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
 components:
   parameters:
     PageQueryParameter:
@@ -43,12 +98,74 @@ components:
         minimum: 10
         maximum: 30
         default: 10
+  # ========================================
+  # ===== Request bodies
+  # ========================================
+  requestBodies:
+    GenerateSummaryRequest:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NewSummary"
+      required: true
 
   # ========================================
   # ===== Schemas
   # ========================================
   schemas:
-
+    NewSummary:
+      type: object
+      properties:
+        article:
+          type: string
+          description: Article to summarize
+        outputLanguage:
+          $ref: "#/components/schemas/Language"
+          default: EN
+          description: Language which will be used to generate the summary, default is EN
+      required:
+        - article
+        - outputLanguage
+    Summary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        content:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        language:
+          $ref: "#/components/schemas/Language"
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        deletedAt:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+        - id
+        - title
+        - content
+        - tags
+        - language
+        - createdAt
+    Language:
+      enum:
+        - EN
+        - PT
+      default: EN
     Error:
       required:
         - message

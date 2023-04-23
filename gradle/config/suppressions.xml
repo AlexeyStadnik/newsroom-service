@@ -2,5 +2,6 @@
         "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
 <suppressions>
     <suppress checks="." files="[\\/]model[\\/]rest[\\/][^./\\]+\.java$"/>
+    <suppress checks="." files="[\\/]OpenAiMapper.java$"/>
     <suppress checks="." files="[\\/]controllers[\\/]api[\\/][^./\\]+\.java$"/>
 </suppressions>

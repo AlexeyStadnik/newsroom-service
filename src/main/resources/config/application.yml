@@ -1,4 +1,6 @@
 spring:
+  jackson:
+    default-property-inclusion: non_null
   datasource:
     driver-class-name: org.postgresql.Driver
     url: "${SPRING_DATASOURCE_URL}"
@@ -8,6 +10,9 @@ spring:
 server:
   port: "${PORT:8080}"
 
+app:
+  openai:
+    host: "https://api.openai.com"
 ---
 spring:
   jpa:
@@ -20,3 +25,9 @@ spring:
   config:
     activate:
       on-profile: local
+
+app:
+  deepl:
+    authKey:
+  openai:
+    authKey:

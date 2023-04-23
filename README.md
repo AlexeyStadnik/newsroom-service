@@ -49,6 +49,13 @@ The project is deployed to my private `AWS EC2` instance.
 The deployment is done using GitHub Actions and the docker image is pushed to `AWS ECR`.
 `AWS ALB` is used for load balancing and SSL termination. The subdomain is managed by `AWS Route53`.
 
+The deployment is done automatically on every push to the `main` branch.
+
+Deployed service:
+```
+https://api.newsroom.alexstadnik.dev/actuator/health
+```
+
 ## Examples
 
 Request:
